@@ -9,15 +9,13 @@ uniform mat4 p_matrix;
 
 mat4 my_matrix = camera_matrix * t3_matrix * t2_matrix * t1_matrix * t0_matrix * p_matrix;
 
-uniform sampler2D texture;
-
 attribute vec3 position;
-attribute vec2 texcoord;
+attribute vec4 colour;
 
-varying vec2 frag_texcoord;
+varying vec4 frag_colour;
 
 void main()
 {
     gl_Position = my_matrix * vec4(position, 1.0);
-    frag_texcoord = texcoord;
+    frag_colour = colour;
 }
