@@ -1,7 +1,7 @@
 # Makefile for my GLES-based library: Glesly
 #
 
-NAME                 =  Glesly_Globe
+NAME                 =  Glesly_Earth
 VERS_MAJOR           =  0
 VERS_MINOR           =  1
 
