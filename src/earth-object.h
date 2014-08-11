@@ -63,7 +63,7 @@ namespace Ducktor
      public:
         inline static Glesly::ObjectPtr Create(Glesly::Render & render)
         {
-            return Glesly::ObjectPtr(new EarthObject(render));
+            return (new EarthObject(render))->ObjectBase::Create();
         }
 
         virtual ~EarthObject()

@@ -56,7 +56,7 @@ namespace Ducktor
      public:
         inline static Glesly::ObjectPtr Create(Glesly::Render & render)
         {
-            return Glesly::ObjectPtr(new GlobeLines(render));
+            return (new GlobeLines(render))->ObjectBase::Create();
         }
 
      private:
