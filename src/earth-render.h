@@ -33,10 +33,10 @@ namespace Ducktor
      public:
         virtual ~EarthRender();
 
-        static inline Glesly::RenderPtr Create(Glesly::Render3D::RenderInfo & renderInfo)
+        static inline Glesly::CubeRenderPtr Create(Glesly::Render3D::RenderInfo & renderInfo)
         {
             SYS_DEBUG_STATIC(DM_GLESLY);
-            return Glesly::RenderPtr(new EarthRender(renderInfo));
+            return Glesly::CubeRenderPtr(new EarthRender(renderInfo));
         }
 
      private:
