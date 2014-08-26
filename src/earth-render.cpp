@@ -34,11 +34,6 @@ EarthRender::~EarthRender()
 void EarthRender::Initialize(void)
 {
  SYS_DEBUG_MEMBER(DM_GLESLY);
-
- CameraSetNearPlane(1.0e5);
- CameraSetFarPlane(EarthObject::EarthRadius * 20.0);
- SceneMove(0.0f, 0.0f, EarthObject::EarthRadius);
- SceneRotate(-19.30926*(M_PI/180.0f), (47.46013-90.0)*(M_PI/180.0f));
 }
 
 void EarthRender::Frame(const SYS::TimeDelay & frame_start_time)
