@@ -12,6 +12,7 @@
 #define __SRC_OBJECTS_GLESLY_EARTH_H_INCLUDED__
 
 #include <glesly/read-tga.h>
+#include <pacalib/pacalib.h>
 #include <Debug/Debug.h>
 
 #include <glesly/surfaced-icosahedron.h>
@@ -46,7 +47,41 @@ namespace Ducktor
         {
         }
 
-    }; // class EarthFiles
+    }; // class Ducktor::EarthFiles
+
+    class EarthBitmaps
+    {
+     private:
+        PaCaLib::TargetPtr texture_0;
+        PaCaLib::TargetPtr texture_1;
+        PaCaLib::TargetPtr texture_2;
+        PaCaLib::TargetPtr texture_3;
+        PaCaLib::TargetPtr texture_4;
+        PaCaLib::TargetPtr texture_5;
+
+     protected:
+        const Glesly::Target2D * textureTargets[6];
+
+        EarthBitmaps(void):
+            texture_0(PaCaLib::Target::Create(2048, 2048)),
+            texture_1(PaCaLib::Target::Create(2048, 2048)),
+            texture_2(PaCaLib::Target::Create(2048, 2048)),
+            texture_3(PaCaLib::Target::Create(2048, 2048)),
+            texture_4(PaCaLib::Target::Create(2048, 2048)),
+            texture_5(PaCaLib::Target::Create(2048, 2048)),
+            textureTargets { &*texture_0, &*texture_1, &*texture_2, &*texture_3, &*texture_4, &*texture_5 }
+        {
+            test(texture_0);
+            test(texture_1);
+            test(texture_2);
+            test(texture_3);
+            test(texture_4);
+            test(texture_5);
+        }
+
+        void test(PaCaLib::TargetPtr & target);
+
+    }; // class Ducktor::EarthBitmaps
 
     class EarthObject: public EarthFiles, public EarthParent
     {
