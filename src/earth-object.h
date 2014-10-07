@@ -37,12 +37,12 @@ namespace Ducktor
         const Glesly::Target2D * textureTargets[6];
 
         EarthFiles(void):
-            textureFile_0(CONFIG_ICON_DIR "/earth/earth+X.tga", false),
-            textureFile_1(CONFIG_ICON_DIR "/earth/earth-X.tga", false),
-            textureFile_2(CONFIG_ICON_DIR "/earth/earth+Y.tga", false),
-            textureFile_3(CONFIG_ICON_DIR "/earth/earth-Y.tga", false),
-            textureFile_4(CONFIG_ICON_DIR "/earth/earth+Z.tga", false),
-            textureFile_5(CONFIG_ICON_DIR "/earth/earth-Z.tga", false),
+            textureFile_0(CONFIG_ICON_DIR "/earth/earth+X.tga"),
+            textureFile_1(CONFIG_ICON_DIR "/earth/earth-X.tga"),
+            textureFile_2(CONFIG_ICON_DIR "/earth/earth+Y.tga"),
+            textureFile_3(CONFIG_ICON_DIR "/earth/earth-Y.tga"),
+            textureFile_4(CONFIG_ICON_DIR "/earth/earth+Z.tga"),
+            textureFile_5(CONFIG_ICON_DIR "/earth/earth-Z.tga"),
             textureTargets { &textureFile_0, &textureFile_1, &textureFile_2, &textureFile_3, &textureFile_4, &textureFile_5 }
         {
         }
