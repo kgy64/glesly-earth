@@ -63,12 +63,12 @@ namespace Ducktor
         const Glesly::Target2D * textureTargets[6];
 
         EarthBitmaps(void):
-            texture_0(PaCaLib::Target::Create(2048, 2048)),
-            texture_1(PaCaLib::Target::Create(2048, 2048)),
-            texture_2(PaCaLib::Target::Create(2048, 2048)),
-            texture_3(PaCaLib::Target::Create(2048, 2048)),
-            texture_4(PaCaLib::Target::Create(2048, 2048)),
-            texture_5(PaCaLib::Target::Create(2048, 2048)),
+            texture_0(PaCaLib::Target::Create(2048, 2048, Glesly::FORMAT_RGB_565)),
+            texture_1(PaCaLib::Target::Create(2048, 2048, Glesly::FORMAT_RGB_565)),
+            texture_2(PaCaLib::Target::Create(2048, 2048, Glesly::FORMAT_RGB_565)),
+            texture_3(PaCaLib::Target::Create(2048, 2048, Glesly::FORMAT_RGB_565)),
+            texture_4(PaCaLib::Target::Create(2048, 2048, Glesly::FORMAT_RGB_565)),
+            texture_5(PaCaLib::Target::Create(2048, 2048, Glesly::FORMAT_RGB_565)),
             textureTargets { &*texture_0, &*texture_1, &*texture_2, &*texture_3, &*texture_4, &*texture_5 }
         {
             test(texture_0);
@@ -83,14 +83,14 @@ namespace Ducktor
 
     }; // class Ducktor::EarthBitmaps
 
-    class EarthObject: public EarthFiles, public EarthParent
+    class EarthObject: public EarthBitmaps, public EarthParent
     {
      public:
         static constexpr float EarthRadius    =   2e7/M_PI;
 
      protected:
         EarthObject(Glesly::Render & render):
-            EarthParent(render, EarthObject::EarthRadius, textureTargets)
+            EarthParent(render, EarthObject::EarthRadius, textureTargets, Glesly::FORMAT_RGB_565)
         {
             SYS_DEBUG_MEMBER(DM_GLESLY);
         }
