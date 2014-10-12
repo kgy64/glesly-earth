@@ -36,6 +36,12 @@ namespace Ducktor
      protected:
         const Glesly::Target2D * textureTargets[6];
 
+     public:
+        const Glesly::Target2D * const * getTextures(void) const
+        {
+            return textureTargets;
+        }
+
         EarthFiles(void):
             textureFile_0(CONFIG_ICON_DIR "/earth/earth+X.tga"),
             textureFile_1(CONFIG_ICON_DIR "/earth/earth-X.tga"),
@@ -78,15 +84,9 @@ namespace Ducktor
             texture_5(CreateTarget()),
             textureTargets { &*texture_0, &*texture_1, &*texture_2, &*texture_3, &*texture_4, &*texture_5 }
         {
-            test(texture_0);
-            test(texture_1);
-            test(texture_2);
-            test(texture_3);
-            test(texture_4);
-            test(texture_5);
         }
 
-        void test(PaCaLib::TargetPtr & target);
+        void test(int i);
 
     }; // class Ducktor::EarthBitmaps
 
@@ -97,9 +97,14 @@ namespace Ducktor
 
      protected:
         EarthObject(Glesly::Render & render):
-            EarthParent(render, EarthObject::EarthRadius, textureTargets, TARGET_FORMAT)
+            EarthParent(render, EarthObject::EarthRadius, textureTargets)
         {
             SYS_DEBUG_MEMBER(DM_GLESLY);
+            EarthFiles files;
+            for (int i = 0; i < 6; ++i) {
+                *const_cast<Glesly::Target2D *>(textureTargets[i]) = *files.getTextures()[i];
+                test(i);
+            }
         }
 
      public:

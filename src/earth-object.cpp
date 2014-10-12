@@ -10,17 +10,18 @@
 
 #include "earth-object.h"
 
+#include <sstream>
+
 using namespace Ducktor;
 
-void EarthBitmaps::test(PaCaLib::TargetPtr & target)
+void EarthBitmaps::test(int i)
 {
- PaCaLib::DrawPtr dr = target->Draw();
+ const PaCaLib::Target * target = static_cast<const PaCaLib::Target *>(textureTargets[i]);
 
- dr->SetColour(0.0, 0.0, 1.0);
- dr->Paint();
+ PaCaLib::DrawPtr dr = const_cast<PaCaLib::Target *>(target)->Draw();
 
  PaCaLib::PathPtr p = dr->NewPath();
- dr->SetColour(0.5, 1.0, 0.5);
+ dr->SetColour(0.5, 0.2, 0.3, 0.6);
  dr->SetLineWidth(0.1);
  p->Move(-0.5, -0.5);
  p->Line(-0.5, 0.5);
@@ -29,8 +30,12 @@ void EarthBitmaps::test(PaCaLib::TargetPtr & target)
  p->Close();
  p->Stroke();
 
- dr->SetColour(1.0, 0.0, 0.0);
- dr->DrawText(0.0f, 0.0f, PaCaLib::CENTER, "Próba", 0.2f, 1.0f);
+ std::ostringstream os;
+
+ os << "Próba:" << std::endl << i;
+
+ dr->SetColour(1.0, 0.0, 0.5, 0.4);
+ dr->DrawText(0.0f, 0.0f, PaCaLib::CENTER, os.str().c_str(), 0.12f, 1.0f);
 }
 
 /* * * * * * * * * * * * * End - of - File * * * * * * * * * * * * * * */
