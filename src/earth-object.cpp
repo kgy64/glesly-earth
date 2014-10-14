@@ -23,11 +23,27 @@ void EarthBitmaps::test(int i)
  PaCaLib::PathPtr p = dr->NewPath();
  dr->SetColour(0.5f, 0.2f, 0.3f, 0.6f);
  dr->SetColourCompose(PaCaLib::COLOUR_COMPOSE_SUBTRACT);
- dr->SetLineWidth(0.1);
+ dr->SetLineWidth(0.08);
+
  p->Move(-0.5f, -0.5f);
  p->Line(-0.5f, 0.5f);
  p->Line(0.5f, 0.5f);
  p->Line(0.5f, -0.5f);
+ p->Close();
+ p->Stroke();
+ p->Clear();
+
+ dr->SetLineWidth(0.02);
+ dr->SetColour(0.2f, 0.3f, 0.3f, 0.5f);
+
+ p->Bezier(-0.70f, -0.55f, +0.0f, -0.1f);
+ p->Bezier(-0.55f, -0.70f, +0.1f, +0.0f);
+ p->Bezier(+0.55f, -0.70f, +0.1f, +0.0f);
+ p->Bezier(+0.70f, -0.55f, +0.0f, +0.1f);
+ p->Bezier(+0.70f, +0.55f, +0.0f, +0.1f);
+ p->Bezier(+0.55f, +0.70f, -0.1f, +0.0f);
+ p->Bezier(-0.55f, +0.70f, -0.1f, +0.0f);
+ p->Bezier(-0.70f, +0.55f, +0.0f, -0.1f);
  p->Close();
  p->Stroke();
 
