@@ -21,12 +21,13 @@ void EarthBitmaps::test(int i)
  PaCaLib::DrawPtr dr = const_cast<PaCaLib::Target *>(target)->Draw();
 
  PaCaLib::PathPtr p = dr->NewPath();
- dr->SetColour(0.5, 0.2, 0.3, 0.6);
+ dr->SetColour(0.5f, 0.2f, 0.3f, 0.6f);
+ dr->SetColourCompose(PaCaLib::COLOUR_COMPOSE_SUBTRACT);
  dr->SetLineWidth(0.1);
- p->Move(-0.5, -0.5);
- p->Line(-0.5, 0.5);
- p->Line(0.5, 0.5);
- p->Line(0.5, -0.5);
+ p->Move(-0.5f, -0.5f);
+ p->Line(-0.5f, 0.5f);
+ p->Line(0.5f, 0.5f);
+ p->Line(0.5f, -0.5f);
  p->Close();
  p->Stroke();
 
@@ -34,7 +35,7 @@ void EarthBitmaps::test(int i)
 
  os << "Próba:" << std::endl << i;
 
- dr->SetColour(1.0, 0.0, 0.5, 0.4);
+ dr->SetColour(1.0f, 0.0f, 0.5f, 0.4f);
  dr->DrawText(0.0f, 0.0f, PaCaLib::CENTER, os.str().c_str(), 0.12f, 1.0f);
 }
 
