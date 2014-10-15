@@ -60,9 +60,9 @@ namespace Ducktor
     class EarthBitmaps
     {
      private:
-        inline static PaCaLib::TargetPtr CreateTarget(void)
+        inline static PaCaLib::TargetPtr CreateTarget(int size = 1024)
         {
-            return PaCaLib::Target::Create(2048, 2048, TARGET_FORMAT);
+            return PaCaLib::Target::Create(size, size, TARGET_FORMAT);
         }
 
         PaCaLib::TargetPtr texture_0;
