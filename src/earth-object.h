@@ -100,11 +100,6 @@ namespace Ducktor
             EarthParent(render, EarthObject::EarthRadius, textureTargets)
         {
             SYS_DEBUG_MEMBER(DM_GLESLY);
-            EarthFiles files;
-            for (int i = 0; i < 6; ++i) {
-                *const_cast<Glesly::Target2D *>(textureTargets[i]) = *files.getTextures()[i];
-                test(i);
-            }
         }
 
      public:
@@ -113,10 +108,9 @@ namespace Ducktor
             return (new EarthObject(render))->ObjectBase::Create();
         }
 
-        virtual ~EarthObject()
-        {
-            SYS_DEBUG_MEMBER(DM_GLESLY);
-        }
+        virtual ~EarthObject();
+
+        void reset(void);
 
      private:
         SYS_DEFINE_CLASS_NAME("Ducktor:EarthObject");

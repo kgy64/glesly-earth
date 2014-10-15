@@ -14,6 +14,27 @@
 
 using namespace Ducktor;
 
+EarthObject::~EarthObject()
+{
+ SYS_DEBUG_MEMBER(DM_GLESLY);
+ DEBUG_OUT("EarthObject: deleted");
+}
+
+void EarthObject::reset(void)
+{
+ SYS_DEBUG_MEMBER(DM_GLESLY);
+
+ DEBUG_OUT("EarthObject::reset() ...");
+ EarthFiles files;
+ for (int i = 0; i < 6; ++i) {
+    *const_cast<Glesly::Target2D *>(textureTargets[i]) = *files.getTextures()[i];
+    test(i);
+ }
+
+ ReinitGL();
+ DEBUG_OUT("EarthObject::reset() ok");
+}
+
 void EarthBitmaps::test(int i)
 {
  const PaCaLib::Target * target = static_cast<const PaCaLib::Target *>(textureTargets[i]);
