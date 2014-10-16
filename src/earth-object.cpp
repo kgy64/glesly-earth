@@ -12,39 +12,28 @@
 
 #include <sstream>
 
-using namespace Ducktor;
-
-EarthObject::~EarthObject()
-{
- SYS_DEBUG_MEMBER(DM_GLESLY);
- DEBUG_OUT("EarthObject: deleted");
-}
-
-void EarthObject::reset(int mode)
-{
- SYS_DEBUG_MEMBER(DM_GLESLY);
-
- static const char * const names[] = {
+static const char * const names[] = {
     CONFIG_ICON_DIR "/earth/earth+X.tga",
     CONFIG_ICON_DIR "/earth/earth-X.tga",
     CONFIG_ICON_DIR "/earth/earth+Y.tga",
     CONFIG_ICON_DIR "/earth/earth-Y.tga",
     CONFIG_ICON_DIR "/earth/earth+Z.tga",
     CONFIG_ICON_DIR "/earth/earth-Z.tga"
- };
+};
 
- DEBUG_OUT("EarthObject::reset() ...");
+using namespace Ducktor;
 
- switch (mode) {
-    case 0:
-    {
-        EarthFiles files(names);
-        resize(files.getSize());
-        for (int i = 0; i < 6; ++i) {
-            *const_cast<Glesly::Target2D *>(textureTargets[i]) = *files.getTextures()[i];
-        }
-    }
-    break;
+EarthObject::~EarthObject()
+{
+ SYS_DEBUG_MEMBER(DM_GLESLY);
+
+ DEBUG_OUT("EarthObject: deleted");
+}
+
+void EarthObject::test(int mode)
+{
+ if (mode == 0) {
+    reset(names);
  }
 
  for (int i = 0; i < 6; ++i) {
@@ -52,10 +41,9 @@ void EarthObject::reset(int mode)
  }
 
  ReinitGL();
- DEBUG_OUT("EarthObject::reset() ok");
 }
 
-void EarthBitmaps::test(int i, int mode)
+void EarthObject::test(int i, int mode)
 {
  const PaCaLib::Target * target = static_cast<const PaCaLib::Target *>(textureTargets[i]);
 
