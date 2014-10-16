@@ -24,14 +24,30 @@ void EarthObject::reset(int mode)
 {
  SYS_DEBUG_MEMBER(DM_GLESLY);
 
+ static const char * const names[] = {
+    CONFIG_ICON_DIR "/earth/earth+X.tga",
+    CONFIG_ICON_DIR "/earth/earth-X.tga",
+    CONFIG_ICON_DIR "/earth/earth+Y.tga",
+    CONFIG_ICON_DIR "/earth/earth-Y.tga",
+    CONFIG_ICON_DIR "/earth/earth+Z.tga",
+    CONFIG_ICON_DIR "/earth/earth-Z.tga"
+ };
+
  DEBUG_OUT("EarthObject::reset() ...");
- EarthFiles files;
- for (int i = 0; i < 6; ++i) {
-    switch (mode) {
-        case 0:
+
+ switch (mode) {
+    case 0:
+    {
+        EarthFiles files(names);
+        resize(files.getSize());
+        for (int i = 0; i < 6; ++i) {
             *const_cast<Glesly::Target2D *>(textureTargets[i]) = *files.getTextures()[i];
-        break;
+        }
     }
+    break;
+ }
+
+ for (int i = 0; i < 6; ++i) {
     test(i, mode);
  }
 

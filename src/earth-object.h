@@ -42,15 +42,24 @@ namespace Ducktor
             return textureTargets;
         }
 
-        EarthFiles(void):
-            textureFile_0(CONFIG_ICON_DIR "/earth/earth+X.tga"),
-            textureFile_1(CONFIG_ICON_DIR "/earth/earth-X.tga"),
-            textureFile_2(CONFIG_ICON_DIR "/earth/earth+Y.tga"),
-            textureFile_3(CONFIG_ICON_DIR "/earth/earth-Y.tga"),
-            textureFile_4(CONFIG_ICON_DIR "/earth/earth+Z.tga"),
-            textureFile_5(CONFIG_ICON_DIR "/earth/earth-Z.tga"),
+        EarthFiles(const char * const * names):
+            textureFile_0(names[0]),
+            textureFile_1(names[1]),
+            textureFile_2(names[2]),
+            textureFile_3(names[3]),
+            textureFile_4(names[4]),
+            textureFile_5(names[5]),
             textureTargets { &textureFile_0, &textureFile_1, &textureFile_2, &textureFile_3, &textureFile_4, &textureFile_5 }
         {
+        }
+
+        int getSize(void) const {
+            int size = textureFile_0.GetWidth();
+            for (int i = 0; i < 6; ++i) {
+                ASSERT(textureTargets[i]->GetWidth() == size, "wrong width of pixmap file: " << textureTargets[i]->GetWidth() << " instead of " << size);
+                ASSERT(textureTargets[i]->GetHeight() == size, "wrong height of pixmap file: " << textureTargets[i]->GetHeight() << " instead of " << size);
+            }
+            return size;
         }
 
     }; // class Ducktor::EarthFiles
@@ -60,7 +69,7 @@ namespace Ducktor
     class EarthBitmaps
     {
      private:
-        inline static PaCaLib::TargetPtr CreateTarget(int size = 1024)
+        inline static PaCaLib::TargetPtr CreateTarget(int size)
         {
             return PaCaLib::Target::Create(size, size, TARGET_FORMAT);
         }
@@ -75,15 +84,28 @@ namespace Ducktor
      protected:
         const Glesly::Target2D * textureTargets[6];
 
-        EarthBitmaps(void):
-            texture_0(CreateTarget()),
-            texture_1(CreateTarget()),
-            texture_2(CreateTarget()),
-            texture_3(CreateTarget()),
-            texture_4(CreateTarget()),
-            texture_5(CreateTarget()),
-            textureTargets { &*texture_0, &*texture_1, &*texture_2, &*texture_3, &*texture_4, &*texture_5 }
+        inline EarthBitmaps(int size):
+            textureTargets { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr }
         {
+            if (size) {
+                resize(size);
+            }
+        }
+
+        inline void resize(int size)
+        {
+            texture_0 = CreateTarget(size);
+            texture_1 = CreateTarget(size);
+            texture_2 = CreateTarget(size);
+            texture_3 = CreateTarget(size);
+            texture_4 = CreateTarget(size);
+            texture_5 = CreateTarget(size);
+            textureTargets[0] = &*texture_0;
+            textureTargets[1] = &*texture_1;
+            textureTargets[2] = &*texture_2;
+            textureTargets[3] = &*texture_3;
+            textureTargets[4] = &*texture_4;
+            textureTargets[5] = &*texture_5;
         }
 
         void test(int i, int mode);
@@ -96,8 +118,9 @@ namespace Ducktor
         static constexpr float EarthRadius    =   2e7/M_PI;
 
      protected:
-        EarthObject(Glesly::Render & render):
-            EarthParent(render, EarthObject::EarthRadius, textureTargets)
+        EarthObject(Glesly::Render & render, int size = 0):
+            EarthBitmaps(size),
+            EarthParent(render, EarthObject::EarthRadius)
         {
             SYS_DEBUG_MEMBER(DM_GLESLY);
         }
@@ -114,6 +137,11 @@ namespace Ducktor
 
      private:
         SYS_DEFINE_CLASS_NAME("Ducktor:EarthObject");
+
+        virtual const Glesly::Target2D * const * getTargets(void) const override
+        {
+            return textureTargets;
+        }
 
     }; // class Ducktor::EarthObject
 
