@@ -64,7 +64,6 @@ void EarthBitmaps::test(int i, int mode)
     break;
     case 2:
     {
-        test(i, 1);
         dr->SetColour(0.2f, 0.3f, 0.3f, 0.5f);
         dr->SetColourCompose(PaCaLib::COLOUR_COMPOSE_SUBTRACT);
         dr->SetLineWidth(0.02);
