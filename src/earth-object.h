@@ -86,7 +86,7 @@ namespace Ducktor
         {
         }
 
-        void test(int i);
+        void test(int i, int mode);
 
     }; // class Ducktor::EarthBitmaps
 
@@ -110,12 +110,12 @@ namespace Ducktor
 
         virtual ~EarthObject();
 
-        void reset(void);
+        void reset(int mode);
 
      private:
         SYS_DEFINE_CLASS_NAME("Ducktor:EarthObject");
 
-    }; // class EarthObject
+    }; // class Ducktor::EarthObject
 
 } // namespace Ducktor
 
