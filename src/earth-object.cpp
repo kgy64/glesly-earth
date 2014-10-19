@@ -83,12 +83,21 @@ void EarthObject::test(int i, int mode)
         p->Close();
         p->Stroke();
 
+        p->Clear();
+        p->Move( 0.0f, -1.0f);
+        p->Line( 0.0f, +1.0f);
+        p->Move(-1.0f,  0.0f);
+        p->Line(+1.0f,  0.0f);
+        p->Stroke();
+
         std::ostringstream os;
 
         os << "Próba:" << std::endl << i;
 
         dr->SetColour(1.0f, 0.0f, 0.5f, 0.4f);
-        dr->DrawText(0.0f, 0.0f, PaCaLib::CENTER, os.str().c_str(), 0.12f, 1.0f);
+        dr->DrawText(0.0f, 0.0f, PaCaLib::CENTER, os.str().c_str(), 0.12f, 1.0f, M_PI/6.0f);
+        dr->SetColour(0.0f, 1.0f, 0.5f, 0.4f);
+        dr->DrawText(0.0f, 0.0f, PaCaLib::CENTER, os.str().c_str(), 0.12f, 1.0f, -M_PI/6.0f);
     }
     break;
  }
