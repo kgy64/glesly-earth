@@ -30,14 +30,54 @@ EarthObject::~EarthObject()
  DEBUG_OUT("EarthObject: deleted");
 }
 
-void EarthObject::test(int mode)
+extern float X,Y,A,B;
+
+bool EarthObject::MouseClick(float x, float y, int index, int count)
 {
- if (mode == 0) {
-    reset(names);
+ DEBUG_OUT("MouseClick(" << x << ", " << y << ", " << index << ", " << count << ")");
+
+ if (count == 0) {
+    switch (index) {
+        case 0:
+            Y = (x-400.0f)/400.0f;
+            X = (y-240.0f)/240.0f;
+        break;
+        case 2:
+            A = (x-400.0f)/400.0f;
+            B = (y-240.0f)/240.0f;
+        break;
+    }
  }
 
- for (int i = 0; i < 6; ++i) {
-    test(i, mode);
+ return false;
+}
+
+void EarthObject::test(int mode)
+{
+ switch (mode) {
+    case 0:
+        reset(names);
+    break;
+    case 3:
+    {
+        float x = 30.0f, y = 0.0f;
+        PaCaLib::DrawPtr dr = Draw();
+        for (x = -165.0f; x < 181.0f; x += 30.0f) {
+            for (y = -85.0f; y < 90.0f; y += 5.0f) {
+                char tmp[50];
+                sprintf(tmp, "<%+04d/%+03d>", (int)x, (int)y);
+                float longitude = x * M_PI/180.0f;
+                float latitude = y * M_PI/180.0f;
+                dr->DrawText(longitude, latitude, PaCaLib::CENTER, tmp, 0.04);
+            }
+        }
+    }
+    break;
+    default:
+        for (int i = 0; i < 6; ++i) {
+            test(i, mode);
+        }
+    break;
  }
 
  ReinitGL();
@@ -72,14 +112,17 @@ void EarthObject::test(int i, int mode)
         dr->SetColourCompose(PaCaLib::COLOUR_COMPOSE_SUBTRACT);
         dr->SetLineWidth(0.02);
 
-        p->Bezier(-0.70f, -0.55f, +0.0f, -0.1f);
-        p->Bezier(-0.55f, -0.70f, +0.1f, +0.0f);
-        p->Bezier(+0.55f, -0.70f, +0.1f, +0.0f);
-        p->Bezier(+0.70f, -0.55f, +0.0f, +0.1f);
-        p->Bezier(+0.70f, +0.55f, +0.0f, +0.1f);
-        p->Bezier(+0.55f, +0.70f, -0.1f, +0.0f);
-        p->Bezier(-0.55f, +0.70f, -0.1f, +0.0f);
-        p->Bezier(-0.70f, +0.55f, +0.0f, -0.1f);
+        static constexpr float p1 = 0.95f;
+        static constexpr float p2 = 0.80f;
+
+        p->Bezier(-p1, -p2, +0.0f, -0.1f);
+        p->Bezier(-p2, -p1, +0.1f, +0.0f);
+        p->Bezier(+p2, -p1, +0.1f, +0.0f);
+        p->Bezier(+p1, -p2, +0.0f, +0.1f);
+        p->Bezier(+p1, +p2, +0.0f, +0.1f);
+        p->Bezier(+p2, +p1, -0.1f, +0.0f);
+        p->Bezier(-p2, +p1, -0.1f, +0.0f);
+        p->Bezier(-p1, +p2, +0.0f, -0.1f);
         p->Close();
         p->Stroke();
 

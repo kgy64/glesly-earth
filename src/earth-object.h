@@ -47,6 +47,7 @@ namespace Ducktor
         SYS_DEFINE_CLASS_NAME("Ducktor:EarthObject");
 
         void test(int i, int mode);
+        virtual bool MouseClick(float x, float y, int index, int count) override;
 
     }; // class Ducktor::EarthObject
 
