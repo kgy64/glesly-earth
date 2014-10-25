@@ -60,15 +60,17 @@ void EarthObject::test(int mode)
     break;
     case 3:
     {
-        float x = 30.0f, y = 0.0f;
         PaCaLib::DrawPtr dr = Draw();
-        for (x = -165.0f; x < 181.0f; x += 30.0f) {
-            for (y = -85.0f; y < 90.0f; y += 5.0f) {
+        dr->DrawText(0.0f, M_PI/2.0f, PaCaLib::CENTER, "N", 0.017);
+        dr->DrawText(0.0f, -M_PI/2.0f, PaCaLib::CENTER, "S", 0.017);
+        float x = 0.0f, y = 0.0f;
+        for (x = -175.0f; x < 181.0f; x += 10.0f) {
+            for (y = -89.0f; y < 90.0f; y += 1.0f) {
                 char tmp[50];
                 sprintf(tmp, "<%+04d/%+03d>", (int)x, (int)y);
                 float longitude = x * M_PI/180.0f;
                 float latitude = y * M_PI/180.0f;
-                dr->DrawText(longitude, latitude, PaCaLib::CENTER, tmp, 0.04);
+                dr->DrawText(longitude, latitude, PaCaLib::CENTER, tmp, 0.01);
             }
         }
     }
