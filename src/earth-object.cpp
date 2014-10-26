@@ -61,6 +61,7 @@ void EarthObject::test(int mode)
     case 3:
     {
         PaCaLib::DrawPtr dr = Draw();
+        dr->SetColour(0, 0, 0, 1);
         dr->DrawText(0.0f, M_PI/2.0f, PaCaLib::CENTER, "N", 0.017);
         dr->DrawText(0.0f, -M_PI/2.0f, PaCaLib::CENTER, "S", 0.017);
         float x = 0.0f, y = 0.0f;
