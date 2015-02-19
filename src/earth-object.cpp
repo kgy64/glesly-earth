@@ -76,7 +76,8 @@ void EarthObject::test(int mode)
         }
     }
     break;
-    default:
+    case 1: // no break!
+    case 2:
         for (int i = 0; i < 6; ++i) {
             test(i, mode);
         }
