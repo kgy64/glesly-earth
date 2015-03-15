@@ -36,11 +36,18 @@ namespace Ducktor
      public:
         inline static Glesly::ObjectPtr Create(Glesly::Render & render, int size = 0)
         {
-            return (new EarthObject(render, size))->ObjectBase::Create();
+            return (new EarthObject(render, size))->ObjectBase::Create(false);  // do not initialize yet
         }
 
         virtual ~EarthObject();
 
+        inline void UpdateDrawing(void)
+        {
+            ReinitGL();
+        }
+
+        void DrawWeb(void);
+        void LoadImage(void);
         void test(int mode);
 
      private:
