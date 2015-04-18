@@ -36,6 +36,7 @@ namespace Ducktor
      public:
         inline static Glesly::ObjectPtr Create(Glesly::Render & render, int size = 0)
         {
+            SYS_DEBUG_STATIC(DM_GLESLY);
             return (new EarthObject(render, size))->ObjectBase::Create(false);  // do not initialize yet
         }
 
