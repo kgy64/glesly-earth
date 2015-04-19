@@ -31,7 +31,7 @@ bool EarthObject::MouseClick(float x, float y, int index, int count)
     switch (index) {
         case 0:
             Y = (x-400.0f)/400.0f;
-            X = (y-240.0f)/240.0f;
+            X = -(y-240.0f)/240.0f;
         break;
         case 2:
             A = (x-400.0f)/400.0f;
@@ -45,6 +45,8 @@ bool EarthObject::MouseClick(float x, float y, int index, int count)
 
 void EarthObject::DrawWeb(void)
 {
+ SYS_DEBUG_MEMBER(DM_GLESLY);
+
  PaCaLib::DrawPtr dr = Draw();
  dr->SetColourCompose(PaCaLib::COLOUR_COMPOSE_SUBTRACT);
  dr->SetColour(1, 1, 0, 1);
@@ -78,9 +80,10 @@ void EarthObject::DrawWeb(void)
  for (y = -80.0f/90.0f; y < 81.0f/90.0f; y += 10.0f/90.0f) {
     PaCaLib::PathPtr pp = dr->NewPath();
     pp->Move(-180.0f/180.0f, y);
-    for (x = -170.0f/180.0f; x < 181.0f/180.0f; x += 10.0f/180.0f) {
+    for (x = -170.0f/180.0f; x < 175.0f/180.0f; x += 10.0f/180.0f) {
         pp->Line(x, y);
     }
+    pp->Close();
     pp->Draw();
     if ((y < -1.0f/90.0f || y > 1.0f/90.0f) && y < 75.0f/90.0f && y > -75.0f/90.0f) {
         for (x = -170.0f/180.0f; x < 181.0f/180.0f; x += 10.0f/180.0f) {
@@ -94,6 +97,8 @@ void EarthObject::DrawWeb(void)
 
 void EarthObject::LoadImage(void)
 {
+ SYS_DEBUG_MEMBER(DM_GLESLY);
+
  static const char * const names[] = {
     CONFIG_ICON_DIR "/earth/earth+X.tga",
     CONFIG_ICON_DIR "/earth/earth-X.tga",
@@ -108,6 +113,8 @@ void EarthObject::LoadImage(void)
 
 void EarthObject::test(int mode)
 {
+ SYS_DEBUG_MEMBER(DM_GLESLY);
+
  switch (mode) {
     case 0:
         LoadImage();
@@ -131,7 +138,11 @@ void EarthObject::test(int mode)
     case 4:
         DrawWeb();
     break;
-    case 1: // no break!
+    case 5:
+        FillTest(Draw());
+        // No break!
+    case 1:
+        // No break!
     case 2:
         for (int i = 0; i < 6; ++i) {
             test(i, mode);
@@ -142,14 +153,17 @@ void EarthObject::test(int mode)
 
 void EarthObject::test(int i, int mode)
 {
+ SYS_DEBUG_MEMBER(DM_GLESLY);
+
  const PaCaLib::Target * target = static_cast<const PaCaLib::Target *>(textureTargets[i]);
 
  PaCaLib::DrawPtr dr = const_cast<PaCaLib::Target *>(target)->Draw();
- PaCaLib::PathPtr p = dr->NewPath();
 
  switch (mode) {
     case 1:
     {
+        PaCaLib::PathPtr p = dr->NewPath();
+
         dr->SetColour(0.5f, 0.2f, 0.3f, 0.6f);
         dr->SetColourCompose(PaCaLib::COLOUR_COMPOSE_SUBTRACT);
         dr->SetLineWidth(0.08);
@@ -164,6 +178,8 @@ void EarthObject::test(int i, int mode)
     break;
     case 2:
     {
+        PaCaLib::PathPtr p = dr->NewPath();
+
         dr->SetColour(0.2f, 0.3f, 0.3f, 0.5f);
         dr->SetColourCompose(PaCaLib::COLOUR_COMPOSE_SUBTRACT);
         dr->SetLineWidth(0.02);
@@ -199,7 +215,38 @@ void EarthObject::test(int i, int mode)
         dr->DrawText(0.0f, 0.0f, PaCaLib::CENTER, os.str().c_str(), 0.12f, 1.0f, -M_PI/6.0f);
     }
     break;
+    case 5:
+        FillTest(dr);
+    break;
  }
+}
+
+void EarthObject::FillTest(PaCaLib::DrawPtr dr)
+{
+ SYS_DEBUG_MEMBER(DM_GLESLY);
+
+ PaCaLib::PathPtr p = dr->NewPath();
+
+ dr->SetColour(1.0f, 0.0f, 1.0f, 0.3f);
+ dr->SetOutlineColour(0.0f, 1.0f, 0.0f, 0.4f);
+ dr->SetColourCompose(PaCaLib::COLOUR_COMPOSE_ADD);
+ dr->SetLineWidth(0.09f);
+ dr->SetOutlineWidth(0.03f);
+
+ for (float i  = 0.65f; i > -0.61f; i-=0.1f) {
+    p->Line(+0.65f, i);
+ }
+ for (float i  = 0.65f; i > -0.61f; i-=0.1f) {
+    p->Line(i, -0.65f);
+ }
+ for (float i  = -0.65f; i < 0.61f; i+=0.1f) {
+    p->Line(-0.65f, i);
+ }
+ for (float i  = -0.65f; i < 0.61f; i+=0.1f) {
+    p->Line(i, 0.65f);
+ }
+ p->Close();
+ p->Draw(PaCaLib::Path::DRAW_STROKE_AND_FILL);
 }
 
 /* * * * * * * * * * * * * End - of - File * * * * * * * * * * * * * * */
