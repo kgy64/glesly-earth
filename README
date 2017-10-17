@@ -1,3 +1,11 @@
 Glesly-Earth - my Earth-specific rendering extensions for Glesly-Base
 ---------------------------------------------------------------------
 
+This library adds some extensions to my 3D graphics library - especially for rendering Earth
+(e.g. longitude and latitude raster, continents, etc)
+
+It is base on my other libraries:
+- makesys       https://github.com/kgy64/makesys.git        Generic make system
+- glesly-base   https://github.com/kgy64/glesly-base.git    Basic 3D rendering library
+- baselib       https://github.com/kgy64/baselib.git        Generic library
+
